@@ -68,12 +68,9 @@ class PlateauController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer"),
      *         @OA\Examples(example="int", value="1", summary="An int value."),
-     *     ),
-     *     @OA\Response(response="200", description="success",@OA\JsonContent(ref="#/components/schemas/PlateauResource")))
-     *      @OA\Response(
-     *          response=404,
-     *          description="Not found",
      *      ),
+     *      @OA\Response(response=200, description="success", @OA\JsonContent(ref="#/components/schemas/PlateauResource")),
+     *      @OA\Response(response=404, description="resource not found",@OA\JsonContent(ref="#/components/schemas/NotFoundHttpException"))
      *     )
      */
     public function show(ShowPlateauRequest $request, $id)

@@ -7,8 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Class PlateauResource
  * @package App\Http\Resources
- * @OA\Schema(
- * )
+ * @OA\Schema()
  */
 class PlateauResource extends JsonResource
 {
