@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Plateau\StorePlateausRequest;
+use App\Http\Requests\Plateau\ShowPlateauRequest;
+use App\Http\Requests\Plateau\StorePlateauRequest;
+use App\Http\Resources\PlateauResource;
+use App\Models\Plateau;
 use App\Repositories\Plateau\PlateauRepositoryInterface;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -18,62 +21,21 @@ class PlateauController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *      path="/plateaus",
-     *      operationId="getPlateausList",
-     *      tags={"Plateaus"},
-     *      summary="Get list of plateaus",
-     *      description="Returns list of plateaus",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function index()
-    {
-        return 'ASD';
-    }
-
-    /**
      * @OA\Post(
      *      path="/plateaus",
      *      operationId="createPlateaus",
      *      tags={"Plateaus"},
      *      summary="Create new plateau",
      *      description="Create new plateau",
-     *      @OA\RequestBody(
+     *     @OA\RequestBody(
      *         @OA\MediaType(
-     *             mediaType="application/json",
+     *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="x_coordinate",
-     *                     type="integer"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="y_coordinate",
-     *                     type="integer"
-     *                 ),
-     *                 example={"name": "plateau-1", "x_coordinate": "32", "y_coordinate": "45"}
+     *                 type="object",
+     *                 ref="#/components/schemas/StorePlateauRequest",
      *             )
      *         )
-     *      ),
+     *     ),
      *      @OA\Response(
      *          response=201,
      *          description="Successfully created",
@@ -83,11 +45,40 @@ class PlateauController extends Controller
      *          description="Validation Error",
      *      ),
      *     )
+     * @param StorePlateauRequest $request
+     * @return Response
      */
-    public function store(StorePlateausRequest $request)
+    public function store(StorePlateauRequest $request): Response
     {
         $this->plateauRepository->createPlateau($request->all());
         return response()->noContent(ResponseAlias::HTTP_CREATED);
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/plateaus/{id}",
+     *      operationId="findPlateauById",
+     *      tags={"Plateaus"},
+     *      summary="Find a single plateau by id",
+     *      description="Returns a single plateau",
+     *      @OA\Parameter(
+     *         description="Plateau Id",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         @OA\Examples(example="int", value="1", summary="An int value."),
+     *     ),
+     *     @OA\Response(response="200", description="success",@OA\JsonContent(ref="#/components/schemas/PlateauResource")))
+     *      @OA\Response(
+     *          response=404,
+     *          description="Not found",
+     *      ),
+     *     )
+     */
+    public function show(ShowPlateauRequest $request, $id)
+    {
+        return new PlateauResource($this->plateauRepository->findById($id));
     }
 
 }

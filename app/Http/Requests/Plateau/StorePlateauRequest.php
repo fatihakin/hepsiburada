@@ -4,7 +4,10 @@ namespace App\Http\Requests\Plateau;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePlateausRequest extends FormRequest
+/**
+ * @OA\Schema()
+ */
+class StorePlateauRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,9 +20,9 @@ class StorePlateausRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
+     * @OA\Property(format="string", default="plateau-10", description="name", property="name"),
+     * @OA\Property(format="string", default="27", description="email", property="x_coordinate"),
+     * @OA\Property(format="string", default="43", description="y_coordinate", property="y_coordinate"),
      */
     public function rules()
     {
