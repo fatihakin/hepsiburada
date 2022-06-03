@@ -25,8 +25,8 @@ class StorePlateausRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string' , 'max:255', 'unique:plateaus,name'],
-            'x_coordinate' => ['required', 'integer' , 'max:2000'],
-            'y_coordinate' => ['required', 'integer' , 'max:2000'],
+            'x_coordinate' => ['required', 'integer' , 'max:1000'],
+            'y_coordinate' => ['required', 'integer' , 'max:1000'],
         ];
     }
 }
