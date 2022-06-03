@@ -9,10 +9,10 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(title="HepsiBurada", version="0.1")
- * @OA\PathItem(path="/api")
+ * @OA\Server(url="http://localhost/api/v1")
+ * @OA\Server(url="http://localhost/api/v2")
  */
 class Controller extends BaseController
 {
-
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

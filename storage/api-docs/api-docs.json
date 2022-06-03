@@ -4,7 +4,35 @@
         "title": "HepsiBurada",
         "version": "0.1"
     },
+    "servers": [
+        {
+            "url": "http://localhost/api/v1"
+        },
+        {
+            "url": "http://localhost/api/v2"
+        }
+    ],
     "paths": {
-        "/api": {}
+        "/test": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Get list of projects",
+                "description": "Returns list of projects",
+                "operationId": "getProjectsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
     }
 }
