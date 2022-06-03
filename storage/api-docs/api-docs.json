@@ -75,6 +75,16 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundHttpException"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -82,6 +92,17 @@
     },
     "components": {
         "schemas": {
+            "NotFoundHttpException": {
+                "description": "Class NotFoundHttpException",
+                "properties": {
+                    "message": {
+                        "description": "The err message",
+                        "type": "string",
+                        "example": "Not Found"
+                    }
+                },
+                "type": "object"
+            },
             "StorePlateauRequest": {
                 "properties": {
                     "name": {
@@ -131,11 +152,6 @@
                     }
                 },
                 "type": "object"
-            }
-        },
-        "responses": {
-            "404": {
-                "description": "Not found"
             }
         }
     }
