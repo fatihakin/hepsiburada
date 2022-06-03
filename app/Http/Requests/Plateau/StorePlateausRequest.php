@@ -13,7 +13,7 @@ class StorePlateausRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StorePlateausRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string' , 'max:255', 'unique:plateaus,name'],
+            'x_coordinate' => ['required', 'integer' , 'max:2000'],
+            'y_coordinate' => ['required', 'integer' , 'max:2000'],
         ];
     }
 }

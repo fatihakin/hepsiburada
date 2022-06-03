@@ -2,16 +2,17 @@
 
 namespace App\Repositories\Plateau;
 
+use App\Models\Plateau;
+
 class PlateauRepository implements PlateauRepositoryInterface
 {
-
-    public function getAllPlateaus(array $orderDetails)
+    public function getAllPlateaus()
     {
         // TODO: Implement getAllPlateaus() method.
     }
 
-    public function createPlateau(array $orderDetails)
+    public function createPlateau(array $data)
     {
-        // TODO: Implement createPlateau() method.
+        Plateau::query()->create($data);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Repositories\Plateau;
 
 interface PlateauRepositoryInterface
 {
-    public function getAllPlateaus(array $orderDetails);
-    public function createPlateau(array $orderDetails);
+    public function getAllPlateaus();
+    public function createPlateau(array $data);
 
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('plateaus', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable(false);
+            $table->string('name')->nullable(false)->unique();
             $table->integer('x_coordinate')->nullable(false)->default(0);
             $table->integer('y_coordinate')->nullable(false)->default(0);
             $table->timestamps();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plateaux');
+        Schema::dropIfExists('plateaus');
     }
 };
