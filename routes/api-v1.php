@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::resource('plateaus', PlateauController::class)->only(['store', 'show', 'index']);
 Route::resource('rovers', RoverController::class)->only(['show']);
+Route::put('rovers/{id}/update-state', [RoverController::class , 'updateState']);
 Route::resource('plateaus.rovers', PlateauRoverController::class)->only(['store', 'index']);
 
