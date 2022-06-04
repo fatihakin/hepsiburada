@@ -3,6 +3,7 @@
 namespace App\Repositories\Plateau;
 
 use App\Models\Plateau;
+use Illuminate\Database\Eloquent\Collection;
 
 class PlateauRepository implements PlateauRepositoryInterface
 {
@@ -22,5 +23,10 @@ class PlateauRepository implements PlateauRepositoryInterface
         return Plateau::query()
             ->where('id', $id)
             ->exists();
+    }
+
+    public function getAll(): Collection
+    {
+        return Plateau::query()->get();
     }
 }

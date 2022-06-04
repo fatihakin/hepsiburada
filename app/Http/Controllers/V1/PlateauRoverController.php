@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PlateuRover\IndexPlateauRoverRequest;
-use App\Http\Requests\PlateuRover\StorePlateauRoverRequest;
-use App\Http\Requests\Rover\StoreRoverRequest;
+use App\Http\Requests\PlateauRover\IndexPlateauRoverRequest;
+use App\Http\Requests\PlateauRover\ShowPlateauRoverRequest;
+use App\Http\Requests\PlateauRover\StorePlateauRoverRequest;
 use App\Http\Resources\RoverResource;
 use App\Repositories\PlateauRover\PlateauRoverRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -45,8 +44,7 @@ class PlateauRoverController extends Controller
      */
     public function index(IndexPlateauRoverRequest $request, int $plateauId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return RoverResource::collection($this->plateauRoverRepository->findRoversByPlateauId($plateauId));
-
+        return RoverResource::collection($this->plateauRoverRepository->getRoversByPlateauId($plateauId));
     }
 
     /**
@@ -90,39 +88,5 @@ class PlateauRoverController extends Controller
     {
         $this->plateauRoverRepository->createRoverByPlateau($request->validated(), $plateauId);
         return response()->noContent(ResponseAlias::HTTP_CREATED);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

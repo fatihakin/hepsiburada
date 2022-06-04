@@ -14,6 +14,26 @@
     ],
     "paths": {
         "/plateaus": {
+            "get": {
+                "tags": [
+                    "Plateaus"
+                ],
+                "summary": "Get list of plateaus",
+                "description": "Returns plateaus list",
+                "operationId": "getPlateaus",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlateauResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Plateaus"
@@ -166,33 +186,6 @@
                         "application/x-www-form-urlencoded": {
                             "schema": {
                                 "$ref": "#/components/schemas/StorePlateauRoverRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Successfully created"
-                    },
-                    "422": {
-                        "description": "Validation Error"
-                    }
-                }
-            }
-        },
-        "/rovers": {
-            "post": {
-                "tags": [
-                    "Rovers"
-                ],
-                "summary": "Create new rover",
-                "description": "Create new rover with initial position",
-                "operationId": "createRover",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/StoreRoverRequest"
                             }
                         }
                     }

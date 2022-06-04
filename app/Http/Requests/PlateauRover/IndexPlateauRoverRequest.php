@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PlateuRover;
+namespace App\Http\Requests\PlateauRover;
 
 use App\Repositories\Plateau\PlateauRepositoryInterface;
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,7 +30,6 @@ class IndexPlateauRoverRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             //
         ];

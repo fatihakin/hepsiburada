@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PlateuRover;
+namespace App\Http\Requests\PlateauRover;
 
 use App\Models\Rover;
 use App\Repositories\Plateau\PlateauRepositoryInterface;
@@ -49,9 +49,18 @@ class StorePlateauRoverRequest extends FormRequest
     {
         $validator->after(function ($validator) {
 
-            $plateau = $this->plateauRepository->existsById($this->route('plateau'));
-            if (!$plateau) {
+            $isExistsPlateau = $this->plateauRepository->existsById($this->route('plateau'));
+            if (!$isExistsPlateau) {
                 $validator->errors()->add('plateau', 'Plateau not found');
+            }
+
+            $plateau = $this->plateauRepository->findById($this->route('plateau'));
+            if ($plateau->x_coordinate < $this->request->get('x_coordinate')){
+                $validator->errors()->add('x_coordinate', "Rover's x-coordinate should be smaller than Plateau's x-coordinate");
+            }
+
+            if ($plateau->y_coordinate < $this->request->get('y_coordinate')){
+                $validator->errors()->add('y_coordinate', "Rover's y-coordinate should be smaller than Plateau's y-coordinate");
             }
         });
     }

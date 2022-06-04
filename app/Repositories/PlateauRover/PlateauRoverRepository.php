@@ -14,11 +14,12 @@ class PlateauRoverRepository implements PlateauRoverRepositoryInterface
         Rover::query()->create($data);
     }
 
-    public function findRoversByPlateauId(int $plateauId): Collection|array
+    public function getRoversByPlateauId(int $plateauId): Collection|array
     {
         return Rover::query()
             ->with('plateau')
             ->where('plateau_id', $plateauId)
             ->get();
     }
+
 }

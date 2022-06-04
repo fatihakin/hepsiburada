@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 */
-Route::resource('plateaus', PlateauController::class)->only(['store', 'show']);
-Route::resource('rovers', RoverController::class)->only(['store', 'show']);
+Route::resource('plateaus', PlateauController::class)->only(['store', 'show', 'index']);
+Route::resource('rovers', RoverController::class)->only(['show']);
 Route::resource('plateaus.rovers', PlateauRoverController::class)->only(['store', 'index']);
 

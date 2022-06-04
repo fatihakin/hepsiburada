@@ -24,40 +24,6 @@ class RoverController extends Controller
         $this->roverRepository = $roverRepository;
     }
     /**
-     * @OA\Post(
-     *      path="/rovers",
-     *      operationId="createRover",
-     *      tags={"Rovers"},
-     *      summary="Create new rover",
-     *      description="Create new rover with initial position",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 ref="#/components/schemas/StoreRoverRequest",
-     *             )
-     *         )
-     *     ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successfully created",
-     *       ),
-     *      @OA\Response(
-     *          response=422,
-     *          description="Validation Error",
-     *      ),
-     *     )
-     * @param StoreRoverRequest $request
-     * @return Response
-     */
-    public function store(StoreRoverRequest $request)
-    {
-        $this->roverRepository->createRover($request->validated());
-        return response()->noContent(ResponseAlias::HTTP_CREATED);
-    }
-
-    /**
      * @OA\Get(
      *      path="/rovers/{id}",
      *      operationId="findRoverById",
@@ -83,8 +49,9 @@ class RoverController extends Controller
      */
     public function show(ShowRoverRequest $request , int $id):RoverResource|null
     {
-        return new RoverResource($this->roverRepository->findById($id));
+        return new RoverResource($this->roverRepository->findByIdWithPlateau($id));
     }
+
 
 
 }

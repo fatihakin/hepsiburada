@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Plateau\IndexPlateauRequest;
 use App\Http\Requests\Plateau\ShowPlateauRequest;
 use App\Http\Requests\Plateau\StorePlateauRequest;
 use App\Http\Resources\PlateauResource;
@@ -76,6 +77,23 @@ class PlateauController extends Controller
     public function show(ShowPlateauRequest $request, $id)
     {
         return new PlateauResource($this->plateauRepository->findById($id));
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/plateaus",
+     *      operationId="getPlateaus",
+     *      tags={"Plateaus"},
+     *      summary="Get list of plateaus",
+     *      description="Returns plateaus list",
+     *      @OA\Response(response=200, description="success",
+     *          @OA\JsonContent(ref="#/components/schemas/PlateauResource")
+     *      ),
+     *     )
+     */
+    public function index(IndexPlateauRequest $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        return PlateauResource::collection($this->plateauRepository->getAll());
     }
 
 }
