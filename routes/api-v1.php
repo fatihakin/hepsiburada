@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResources([
     'plateaus' => \App\Http\Controllers\V1\PlateauController::class,
+    'rovers' => \App\Http\Controllers\V1\RoverController::class,
 ]);

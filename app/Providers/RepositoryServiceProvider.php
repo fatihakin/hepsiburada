@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Plateau\PlateauRepository;
 use App\Repositories\Plateau\PlateauRepositoryInterface;
+use App\Repositories\Rover\RoverRepository;
+use App\Repositories\Rover\RoverRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(PlateauRepositoryInterface::class, PlateauRepository::class);
+        $this->app->bind(RoverRepositoryInterface::class, RoverRepository::class);
     }
 
     /**

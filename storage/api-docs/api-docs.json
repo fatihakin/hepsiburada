@@ -88,6 +88,82 @@
                     }
                 }
             }
+        },
+        "/rovers": {
+            "post": {
+                "tags": [
+                    "Rovers"
+                ],
+                "summary": "Create new rover",
+                "description": "Create new rover with initial position",
+                "operationId": "createRover",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreRoverRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully created"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/rovers/{id}": {
+            "get": {
+                "tags": [
+                    "Rovers"
+                ],
+                "summary": "Find a single rover by id",
+                "description": "Returns a single rover",
+                "operationId": "findRoverById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rover Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoverResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundHttpException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -123,6 +199,31 @@
                 },
                 "type": "object"
             },
+            "StoreRoverRequest": {
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "rover-10"
+                    },
+                    "x_coordinate": {
+                        "description": "email",
+                        "format": "string",
+                        "default": "0"
+                    },
+                    "y_coordinate": {
+                        "description": "y_coordinate",
+                        "format": "string",
+                        "default": "0"
+                    },
+                    "facing": {
+                        "description": "facing",
+                        "format": "string",
+                        "default": "N"
+                    }
+                },
+                "type": "object"
+            },
             "PlateauResource": {
                 "description": "Class PlateauResource",
                 "properties": {
@@ -149,6 +250,42 @@
                         "description": "y_coordinate",
                         "format": "string",
                         "default": "10"
+                    }
+                },
+                "type": "object"
+            },
+            "RoverResource": {
+                "description": "Class RoverResource",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "format": "string",
+                        "default": "rover-1"
+                    },
+                    "x_coordinate": {
+                        "title": "x_coordinate",
+                        "description": "x_coordinate",
+                        "format": "string",
+                        "default": "10"
+                    },
+                    "y_coordinate": {
+                        "title": "y_coordinate",
+                        "description": "y_coordinate",
+                        "format": "string",
+                        "default": "10"
+                    },
+                    "facing": {
+                        "title": "facing",
+                        "description": "facing",
+                        "format": "string",
+                        "default": "N"
                     }
                 },
                 "type": "object"

@@ -50,7 +50,7 @@ class PlateauController extends Controller
      */
     public function store(StorePlateauRequest $request): Response
     {
-        $this->plateauRepository->createPlateau($request->all());
+        $this->plateauRepository->createPlateau($request->validated());
         return response()->noContent(ResponseAlias::HTTP_CREATED);
     }
 
