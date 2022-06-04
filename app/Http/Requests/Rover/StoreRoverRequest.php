@@ -22,14 +22,16 @@ class StoreRoverRequest extends FormRequest
     }
 
     /**
+     * @OA\Property(format="integer", default="1", description="plateau_id", property="plateau_id"),
      * @OA\Property(format="string", default="rover-10", description="name", property="name"),
-     * @OA\Property(format="string", default="0", description="email", property="x_coordinate"),
-     * @OA\Property(format="string", default="0", description="y_coordinate", property="y_coordinate"),
+     * @OA\Property(format="integer", default="0", description="email", property="x_coordinate"),
+     * @OA\Property(format="integer", default="0", description="y_coordinate", property="y_coordinate"),
      * @OA\Property(format="string", default="N", description="facing", property="facing"),
      */
     public function rules()
     {
         return [
+            'plateau_id' => ['required', 'integer', 'exists:plateaus,id'],
             'name' => ['required', 'string' , 'max:255', 'unique:rovers,name'],
             'x_coordinate' => ['required', 'integer' , 'max:1000'],
             'y_coordinate' => ['required', 'integer' , 'max:1000'],

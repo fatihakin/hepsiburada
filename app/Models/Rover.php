@@ -10,5 +10,5 @@ class Rover extends Model
     use HasFactory;
 
     const FACING_TYPES = ['N','S','E','W'];
-    protected $fillable=['name', 'x_coordinate', 'y_coordinate','facing'];
+    protected $fillable=['plateau_id', 'name', 'x_coordinate', 'y_coordinate','facing'];
 }

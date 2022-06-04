@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('rovers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('plateau_id')->nullable(false);
+            $table->foreign('plateau_id')->references('id')->on('plateaus');
             $table->string('name')->nullable(false)->unique();
             $table->integer('x_coordinate')->nullable(false)->default(0);
             $table->integer('y_coordinate')->nullable(false)->default(0);
