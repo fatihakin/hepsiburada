@@ -8,21 +8,15 @@ class Area
     private $xMax =0;
     private $yMin =0;
     private $yMax =0;
-    private $facing;
 
     /**
-     * @param int $xMin
      * @param int $xMax
-     * @param int $yMin
      * @param int $yMax
      */
-    public function __construct(int $xMin, int $xMax, int $yMin, int $yMax)
+    public function __construct(int $xMax, int $yMax)
     {
-        $this->xMin = $xMin;
         $this->xMax = $xMax;
-        $this->yMin = $yMin;
         $this->yMax = $yMax;
-//        $this->facing = $facing;
     }
 
 
@@ -88,6 +82,29 @@ class Area
     public function setYMax(int $yMax): void
     {
         $this->yMax = $yMax;
+    }
+
+    public function findNewCoordinatesByFacing($facing, $x, $y)
+    {
+        if ($facing == 'N') {
+            if ($y < $this->getYMax()){
+                $y++;
+            }
+        } else if ($facing == 'E') {
+            if ($x < $this->getXMax()){
+                $x++;
+            }
+        } else if ($facing == 'S') {
+            if ($y > $this->getYMin()){
+                $y--;
+            }
+        } else if ($facing == 'W') {
+            if ($x > $this->getXMin()){
+                $x--;
+            }
+        }
+
+        return [$x, $y];
     }
 
 
