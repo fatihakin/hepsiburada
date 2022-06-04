@@ -4,10 +4,10 @@ namespace App\Libraries;
 
 class Area
 {
-    private $xMin =0;
-    private $xMax =0;
-    private $yMin =0;
-    private $yMax =0;
+    private int $xMin =0;
+    private int $xMax;
+    private int $yMin =0;
+    private int $yMax;
 
     /**
      * @param int $xMax
