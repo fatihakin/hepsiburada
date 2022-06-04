@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\PlateauController;
+use App\Http\Controllers\V1\PlateauRoverController;
+use App\Http\Controllers\V1\RoverController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -10,8 +12,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 */
+Route::resource('plateaus', PlateauController::class)->only(['store', 'show']);
+Route::resource('rovers', RoverController::class)->only(['store', 'show']);
+Route::resource('plateaus.rovers', PlateauRoverController::class)->only(['store', 'index']);
 
-Route::apiResources([
-    'plateaus' => \App\Http\Controllers\V1\PlateauController::class,
-    'rovers' => \App\Http\Controllers\V1\RoverController::class,
-]);

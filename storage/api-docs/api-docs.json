@@ -89,6 +89,97 @@
                 }
             }
         },
+        "/plateaus/{plateauId}/rovers": {
+            "get": {
+                "tags": [
+                    "PlateauRovers"
+                ],
+                "summary": "Get list of rovers by plateauId",
+                "description": "Returns rovers list with plateau",
+                "operationId": "getRoversByPlateauId",
+                "parameters": [
+                    {
+                        "name": "plateauId",
+                        "in": "path",
+                        "description": "Plateau Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoverResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundHttpException"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PlateauRovers"
+                ],
+                "summary": "Create new rover by plateau",
+                "description": "Create new rover with initial position",
+                "operationId": "createRoverByPlateau",
+                "parameters": [
+                    {
+                        "name": "plateauId",
+                        "in": "path",
+                        "description": "Plateau Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePlateauRoverRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully created"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
         "/rovers": {
             "post": {
                 "tags": [
@@ -199,7 +290,7 @@
                 },
                 "type": "object"
             },
-            "StoreRoverRequest": {
+            "StorePlateauRoverRequest": {
                 "properties": {
                     "name": {
                         "description": "name",
@@ -208,12 +299,42 @@
                     },
                     "x_coordinate": {
                         "description": "email",
-                        "format": "string",
+                        "format": "integer",
                         "default": "0"
                     },
                     "y_coordinate": {
                         "description": "y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "facing": {
+                        "description": "facing",
                         "format": "string",
+                        "default": "N"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreRoverRequest": {
+                "properties": {
+                    "plateau_id": {
+                        "description": "plateau_id",
+                        "format": "integer",
+                        "default": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "rover-10"
+                    },
+                    "x_coordinate": {
+                        "description": "email",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "y_coordinate": {
+                        "description": "y_coordinate",
+                        "format": "integer",
                         "default": "0"
                     },
                     "facing": {
@@ -262,6 +383,15 @@
                         "description": "ID",
                         "format": "int64",
                         "default": 1
+                    },
+                    "plateau_id": {
+                        "title": "plateau_id",
+                        "description": "plateau_id",
+                        "format": "string",
+                        "default": "1"
+                    },
+                    "plateau": {
+                        "$ref": "#/components/schemas/PlateauResource"
                     },
                     "name": {
                         "title": "name",

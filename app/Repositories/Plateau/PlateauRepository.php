@@ -16,4 +16,11 @@ class PlateauRepository implements PlateauRepositoryInterface
     {
         return Plateau::query()->findOrFail($id);
     }
+
+    public function existsById(int $id): bool
+    {
+        return Plateau::query()
+            ->where('id', $id)
+            ->exists();
+    }
 }

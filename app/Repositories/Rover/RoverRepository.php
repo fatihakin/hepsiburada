@@ -13,6 +13,14 @@ class RoverRepository implements RoverRepositoryInterface
 
     public function findById(int $id): Rover|array|null
     {
-        return Rover::query()->findOrFail($id);
+        return Rover::query()
+            ->findOrFail($id);
+    }
+
+    public function findByIdWithPlateau(int $id): Rover|array|null
+    {
+        return Rover::query()
+            ->with('plateau')
+            ->findOrFail($id);
     }
 }
