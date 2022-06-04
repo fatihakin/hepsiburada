@@ -56,7 +56,7 @@ class RoverController extends Controller
         /**
          * @var Rover $rover
          */
-        $rover = $this->roverRepository->findByIdWithPlateau($request->validated('id'));
+        $rover = $this->roverRepository->findByIdWithPlateau($id);
         $commands = collect(str_split($request->validated('commands')));
         $area = new Area($rover->plateau->x_coordinate, $rover->plateau->y_coordinate);
 

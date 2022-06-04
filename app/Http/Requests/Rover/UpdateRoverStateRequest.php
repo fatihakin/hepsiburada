@@ -3,11 +3,19 @@
 namespace App\Http\Requests\Rover;
 
 use App\Models\Rover;
+use App\Repositories\Plateau\PlateauRepositoryInterface;
+use App\Repositories\Rover\RoverRepositoryInterface;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateRoverStateRequest extends FormRequest
 {
+    private RoverRepositoryInterface $roverRepository;
+
+    public function __construct(RoverRepositoryInterface $roverRepository)
+    {
+        $this->roverRepository = $roverRepository;
+    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,7 +34,7 @@ class UpdateRoverStateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['required', 'integer', 'exists:rovers,id'],
+//            'id' => ['required', 'integer', 'exists:rovers,id'],
             'commands' => ['required', 'string' , 'max:100'],
         ];
     }
@@ -35,6 +43,10 @@ class UpdateRoverStateRequest extends FormRequest
     {
         $validator->validate();
         $validator->after(function ($validator) {
+            $rover = $this->roverRepository->findById($this->route('id'));
+            if (!$rover){
+                $validator->errors()->add('rover', 'Rover not found');
+            }
             $commands = collect(str_split($this->request->get('commands')));
             $undefinedRoute = $commands->unique()->filter(function ($item){
                return !in_array($item , Rover::AVAILABLE_ROUTES);
