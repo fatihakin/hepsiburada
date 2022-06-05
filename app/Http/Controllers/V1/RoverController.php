@@ -51,6 +51,35 @@ class RoverController extends Controller
         return new RoverResource($this->roverRepository->findByIdWithPlateau($id));
     }
 
+    /**
+     * @OA\Put(
+     *     path="/rovers/{id}/update-state",
+     *     summary="Update state of rover",
+     *     operationId="updateRoverStateByCommand",
+     *     tags={"Rovers"},
+     *     @OA\Parameter(
+     *         description="Rover Id",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *         @OA\Examples(example="int", value="1", summary="An int value."),
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/UpdateRoverStateRequest",
+     *             )
+     *         )
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function updateState(UpdateRoverStateRequest $request, int $id)
     {
         /**
@@ -59,7 +88,11 @@ class RoverController extends Controller
         $rover = $this->roverRepository->findByIdWithPlateau($id);
         $commands = collect(str_split($request->validated('commands')));
         $area = new Area($rover->plateau->x_coordinate, $rover->plateau->y_coordinate);
-
+        $latestRoverState = RoverState::query()->where('rover_id', $rover->id)->latest('id')->first();
+        $group=1;
+        if ($latestRoverState && $latestRoverState->group){
+            $group=$latestRoverState->group +1;
+        }
         $roverStates = collect();
         foreach ($commands as $command) {
             $roverState = new RoverState();
@@ -70,6 +103,7 @@ class RoverController extends Controller
             $roverState->old_y_coordinate = $rover->y_coordinate;
             $roverState->old_facing = $currentFacing;
             $roverState->command = $command;
+            $roverState->group = $group;
 
             $facing = new Facing($currentFacing, $command);
             $rover->facing = $facing()->getNewFacing();
@@ -81,6 +115,9 @@ class RoverController extends Controller
             $roverStates->push($roverState);
 
         }
+
+//        dd($latestRoverState);
+
         DB::beginTransaction();
         $roverStates->each(function (RoverState $roverState){
            $roverState->save();

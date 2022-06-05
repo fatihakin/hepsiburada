@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('new_x_coordinate')->nullable(false);
             $table->integer('new_y_coordinate')->nullable(false);
             $table->string('new_facing')->nullable(false);
+            $table->integer('group')->nullable(false);
         });
     }
 

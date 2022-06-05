@@ -3,11 +3,12 @@
 namespace App\Http\Requests\Rover;
 
 use App\Models\Rover;
-use App\Repositories\Plateau\PlateauRepositoryInterface;
 use App\Repositories\Rover\RoverRepositoryInterface;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
+/**
+ * @OA\Schema()
+ */
 class UpdateRoverStateRequest extends FormRequest
 {
     private RoverRepositoryInterface $roverRepository;
@@ -27,14 +28,11 @@ class UpdateRoverStateRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
+     * @OA\Property(format="string", default="LMLMLMLMM", description="commands", property="commands"),
      */
     public function rules()
     {
         return [
-//            'id' => ['required', 'integer', 'exists:rovers,id'],
             'commands' => ['required', 'string' , 'max:100'],
         ];
     }
