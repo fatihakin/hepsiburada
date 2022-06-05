@@ -248,6 +248,85 @@
                     }
                 }
             }
+        },
+        "/rovers/{id}/update-state": {
+            "put": {
+                "tags": [
+                    "Rovers"
+                ],
+                "summary": "Update state of rover",
+                "operationId": "updateRoverStateByCommand",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rover Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateRoverStateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rovers/{roverId}/rover-states": {
+            "get": {
+                "tags": [
+                    "RoverStates"
+                ],
+                "summary": "Get list of rover states",
+                "description": "Returns rover states list",
+                "operationId": "getRoverStatesByRoverId",
+                "parameters": [
+                    {
+                        "name": "roverId",
+                        "in": "path",
+                        "description": "Rover Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoverStateResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -338,6 +417,16 @@
                 },
                 "type": "object"
             },
+            "UpdateRoverStateRequest": {
+                "properties": {
+                    "commands": {
+                        "description": "commands",
+                        "format": "string",
+                        "default": "LMLMLMLMM"
+                    }
+                },
+                "type": "object"
+            },
             "PlateauResource": {
                 "description": "Class PlateauResource",
                 "properties": {
@@ -409,6 +498,69 @@
                         "description": "facing",
                         "format": "string",
                         "default": "N"
+                    }
+                },
+                "type": "object"
+            },
+            "RoverStateResource": {
+                "description": "Class RoverStateResource",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "rover_id": {
+                        "title": "rover_id",
+                        "description": "rover_id",
+                        "format": "integer",
+                        "default": "1"
+                    },
+                    "rover": {
+                        "$ref": "#/components/schemas/RoverResource"
+                    },
+                    "old_x_coordinate": {
+                        "title": "old_x_coordinate",
+                        "description": "old_x_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "old_y_coordinate": {
+                        "title": "old_y_coordinate",
+                        "description": "old_y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "old_facing": {
+                        "title": "old_facing",
+                        "description": "old_facing",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "new_x_coordinate": {
+                        "title": "new_x_coordinate",
+                        "description": "new_x_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "new_y_coordinate": {
+                        "title": "new_y_coordinate",
+                        "description": "new_y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "new_facing": {
+                        "title": "new_facing",
+                        "description": "new_facing",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "group": {
+                        "title": "group",
+                        "description": "group",
+                        "format": "integer",
+                        "default": "0"
                     }
                 },
                 "type": "object"
