@@ -1,0 +1,568 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "HepsiBurada",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api/v1"
+        }
+    ],
+    "paths": {
+        "/plateaus": {
+            "get": {
+                "tags": [
+                    "Plateaus"
+                ],
+                "summary": "Get list of plateaus",
+                "description": "Returns rover states list.\n     *          You can see all changes of rover's state step by step.\n     *          And also which command changed position or not.\n     *          We can say that it works like blockchain.",
+                "operationId": "getPlateausList",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlateauResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Plateaus"
+                ],
+                "summary": "Create new plateau",
+                "description": "Create a new plateau.",
+                "operationId": "createPlateaus",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePlateauRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully created"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/plateaus/{id}": {
+            "get": {
+                "tags": [
+                    "Plateaus"
+                ],
+                "summary": "Find a single plateau by id",
+                "description": "Returns a single plateau",
+                "operationId": "findPlateauById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Plateau Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlateauResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundHttpException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/plateaus/{plateauId}/rovers": {
+            "get": {
+                "tags": [
+                    "PlateauRovers"
+                ],
+                "summary": "Get list of rovers by plateauId",
+                "description": "Returns rovers list by using plateau Id",
+                "operationId": "getRoversByPlateauId",
+                "parameters": [
+                    {
+                        "name": "plateauId",
+                        "in": "path",
+                        "description": "Plateau Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoverResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundHttpException"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PlateauRovers"
+                ],
+                "summary": "Create new rover by plateau",
+                "description": "Create new rover with initial position by using plato",
+                "operationId": "createRoverByPlateau",
+                "parameters": [
+                    {
+                        "name": "plateauId",
+                        "in": "path",
+                        "description": "Plateau Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePlateauRoverRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully created"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/rovers/{id}": {
+            "get": {
+                "tags": [
+                    "Rovers"
+                ],
+                "summary": "Find a single rover by id",
+                "description": "Returns a single rover. If you would like to see desired state of rover, you can use this API",
+                "operationId": "findRoverById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rover Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Rover ID",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoverResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundHttpException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rovers/{id}/update-state": {
+            "put": {
+                "tags": [
+                    "Rovers"
+                ],
+                "summary": "Update state of rover by using commands",
+                "description": "Available commands are 'L','R','M'",
+                "operationId": "updateRoverStateByCommand",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Rover Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "string": {
+                                "summary": "Combination of consecutive commands",
+                                "value": "LMLMRLM"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateRoverStateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rovers/{roverId}/rover-states": {
+            "get": {
+                "tags": [
+                    "RoverStates"
+                ],
+                "summary": "Get list of rover states",
+                "description": "Returns rover states list.\n     *          You can see all changes of rover's state step by step.\n     *          And also which command changed position or not.\n     *          We can say that it works like blockchain.",
+                "operationId": "getRoverStatesByRoverId",
+                "parameters": [
+                    {
+                        "name": "roverId",
+                        "in": "path",
+                        "description": "Rover Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Rover ID",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoverStateResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NotFoundHttpException": {
+                "description": "Class NotFoundHttpException",
+                "properties": {
+                    "message": {
+                        "description": "The err message",
+                        "type": "string",
+                        "example": "Not Found"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePlateauRequest": {
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "plateau-10"
+                    },
+                    "x_coordinate": {
+                        "description": "email",
+                        "format": "string",
+                        "default": "27"
+                    },
+                    "y_coordinate": {
+                        "description": "y_coordinate",
+                        "format": "string",
+                        "default": "43"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePlateauRoverRequest": {
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "rover-10"
+                    },
+                    "x_coordinate": {
+                        "description": "email",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "y_coordinate": {
+                        "description": "y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "facing": {
+                        "description": "facing",
+                        "format": "string",
+                        "default": "N"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreRoverRequest": {
+                "properties": {
+                    "plateau_id": {
+                        "description": "plateau_id",
+                        "format": "integer",
+                        "default": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "rover-10"
+                    },
+                    "x_coordinate": {
+                        "description": "email",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "y_coordinate": {
+                        "description": "y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "facing": {
+                        "description": "facing",
+                        "format": "string",
+                        "default": "N"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateRoverStateRequest": {
+                "properties": {
+                    "commands": {
+                        "description": "commands",
+                        "format": "string",
+                        "default": "LMLMLMLMM"
+                    }
+                },
+                "type": "object"
+            },
+            "PlateauResource": {
+                "description": "Class PlateauResource",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "format": "string",
+                        "default": "plateau-1"
+                    },
+                    "x_coordinate": {
+                        "title": "x_coordinate",
+                        "description": "x_coordinate",
+                        "format": "string",
+                        "default": "10"
+                    },
+                    "y_coordinate": {
+                        "title": "y_coordinate",
+                        "description": "y_coordinate",
+                        "format": "string",
+                        "default": "10"
+                    }
+                },
+                "type": "object"
+            },
+            "RoverResource": {
+                "description": "Class RoverResource",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "plateau_id": {
+                        "title": "plateau_id",
+                        "description": "plateau_id",
+                        "format": "string",
+                        "default": "1"
+                    },
+                    "plateau": {
+                        "$ref": "#/components/schemas/PlateauResource"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "format": "string",
+                        "default": "rover-1"
+                    },
+                    "x_coordinate": {
+                        "title": "x_coordinate",
+                        "description": "x_coordinate",
+                        "format": "string",
+                        "default": "10"
+                    },
+                    "y_coordinate": {
+                        "title": "y_coordinate",
+                        "description": "y_coordinate",
+                        "format": "string",
+                        "default": "10"
+                    },
+                    "facing": {
+                        "title": "facing",
+                        "description": "facing",
+                        "format": "string",
+                        "default": "N"
+                    }
+                },
+                "type": "object"
+            },
+            "RoverStateResource": {
+                "description": "Class RoverStateResource",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "rover_id": {
+                        "title": "rover_id",
+                        "description": "rover_id",
+                        "format": "integer",
+                        "default": "1"
+                    },
+                    "rover": {
+                        "$ref": "#/components/schemas/RoverResource"
+                    },
+                    "old_x_coordinate": {
+                        "title": "old_x_coordinate",
+                        "description": "old_x_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "old_y_coordinate": {
+                        "title": "old_y_coordinate",
+                        "description": "old_y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "old_facing": {
+                        "title": "old_facing",
+                        "description": "old_facing",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "new_x_coordinate": {
+                        "title": "new_x_coordinate",
+                        "description": "new_x_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "new_y_coordinate": {
+                        "title": "new_y_coordinate",
+                        "description": "new_y_coordinate",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "new_facing": {
+                        "title": "new_facing",
+                        "description": "new_facing",
+                        "format": "integer",
+                        "default": "0"
+                    },
+                    "group": {
+                        "title": "group",
+                        "description": "group",
+                        "format": "integer",
+                        "default": "0"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

@@ -6,9 +6,6 @@
     },
     "servers": [
         {
-            "url": "http://localhost/api/v1"
-        },
-        {
             "url": "http://localhost/api/v2"
         }
     ],
@@ -19,8 +16,8 @@
                     "Plateaus"
                 ],
                 "summary": "Get list of plateaus",
-                "description": "Returns plateaus list",
-                "operationId": "getPlateaus",
+                "description": "Returns rover states list.\n     *          You can see all changes of rover's state step by step.\n     *          And also which command changed position or not.\n     *          We can say that it works like blockchain.",
+                "operationId": "getPlateausList",
                 "responses": {
                     "200": {
                         "description": "success",
@@ -39,7 +36,7 @@
                     "Plateaus"
                 ],
                 "summary": "Create new plateau",
-                "description": "Create new plateau",
+                "description": "Create a new plateau.",
                 "operationId": "createPlateaus",
                 "requestBody": {
                     "content": {
@@ -102,225 +99,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/NotFoundHttpException"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/plateaus/{plateauId}/rovers": {
-            "get": {
-                "tags": [
-                    "PlateauRovers"
-                ],
-                "summary": "Get list of rovers by plateauId",
-                "description": "Returns rovers list with plateau",
-                "operationId": "getRoversByPlateauId",
-                "parameters": [
-                    {
-                        "name": "plateauId",
-                        "in": "path",
-                        "description": "Plateau Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "examples": {
-                            "int": {
-                                "summary": "An int value.",
-                                "value": "1"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RoverResource"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "resource not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/NotFoundHttpException"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "PlateauRovers"
-                ],
-                "summary": "Create new rover by plateau",
-                "description": "Create new rover with initial position",
-                "operationId": "createRoverByPlateau",
-                "parameters": [
-                    {
-                        "name": "plateauId",
-                        "in": "path",
-                        "description": "Plateau Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "examples": {
-                            "int": {
-                                "summary": "An int value.",
-                                "value": "1"
-                            }
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/StorePlateauRoverRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Successfully created"
-                    },
-                    "422": {
-                        "description": "Validation Error"
-                    }
-                }
-            }
-        },
-        "/rovers/{id}": {
-            "get": {
-                "tags": [
-                    "Rovers"
-                ],
-                "summary": "Find a single rover by id",
-                "description": "Returns a single rover",
-                "operationId": "findRoverById",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Rover Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "examples": {
-                            "int": {
-                                "summary": "An int value.",
-                                "value": "1"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RoverResource"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "resource not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/NotFoundHttpException"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/rovers/{id}/update-state": {
-            "put": {
-                "tags": [
-                    "Rovers"
-                ],
-                "summary": "Update state of rover",
-                "operationId": "updateRoverStateByCommand",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Rover Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "examples": {
-                            "int": {
-                                "summary": "An int value.",
-                                "value": "1"
-                            }
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateRoverStateRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/rovers/{roverId}/rover-states": {
-            "get": {
-                "tags": [
-                    "RoverStates"
-                ],
-                "summary": "Get list of rover states",
-                "description": "Returns rover states list",
-                "operationId": "getRoverStatesByRoverId",
-                "parameters": [
-                    {
-                        "name": "roverId",
-                        "in": "path",
-                        "description": "Rover Id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "examples": {
-                            "int": {
-                                "summary": "An int value.",
-                                "value": "1"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RoverStateResource"
                                 }
                             }
                         }

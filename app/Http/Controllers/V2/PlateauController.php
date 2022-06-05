@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\V2;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\V1\V1ApiController;
 use App\Http\Requests\Plateau\IndexPlateauRequest;
 use App\Http\Requests\Plateau\ShowPlateauRequest;
 use App\Http\Requests\Plateau\StorePlateauRequest;
@@ -12,7 +10,7 @@ use App\Repositories\Plateau\PlateauRepositoryInterface;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class PlateauController extends V1ApiController
+class PlateauController extends V2ApiController
 {
     private PlateauRepositoryInterface $plateauRepository;
 
@@ -98,5 +96,7 @@ class PlateauController extends V1ApiController
     {
         return PlateauResource::collection($this->plateauRepository->getAll());
     }
+
+
 
 }

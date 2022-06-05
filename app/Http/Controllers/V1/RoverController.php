@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\V1\V1ApiController;
 use App\Http\Requests\Rover\ShowRoverRequest;
 use App\Http\Requests\Rover\UpdateRoverStateRequest;
 use App\Http\Resources\RoverResource;
@@ -14,7 +15,7 @@ use App\Repositories\Rover\RoverRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class RoverController extends Controller
+class RoverController extends V1ApiController
 {
     private RoverRepositoryInterface $roverRepository;
 

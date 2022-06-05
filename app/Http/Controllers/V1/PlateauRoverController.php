@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\V1\V1ApiController;
 use App\Http\Requests\PlateauRover\IndexPlateauRoverRequest;
 use App\Http\Requests\PlateauRover\StorePlateauRoverRequest;
 use App\Http\Resources\RoverResource;
@@ -10,7 +11,7 @@ use App\Repositories\PlateauRover\PlateauRoverRepositoryInterface;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class PlateauRoverController extends Controller
+class PlateauRoverController extends V1ApiController
 {
     private PlateauRoverRepositoryInterface $plateauRoverRepository;
 

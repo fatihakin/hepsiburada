@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\V1\V1ApiController;
 use App\Http\Requests\RoverState\IndexRoverStateRequest;
 use App\Http\Resources\RoverStateResource;
 use App\Repositories\RoverState\RoverStateRepositoryInterface;
 
-class RoverStateController extends Controller
+class RoverStateController extends V1ApiController
 {
     private RoverStateRepositoryInterface $roverStateRepository;
 
