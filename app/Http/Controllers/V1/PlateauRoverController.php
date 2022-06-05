@@ -4,11 +4,9 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlateauRover\IndexPlateauRoverRequest;
-use App\Http\Requests\PlateauRover\ShowPlateauRoverRequest;
 use App\Http\Requests\PlateauRover\StorePlateauRoverRequest;
 use App\Http\Resources\RoverResource;
 use App\Repositories\PlateauRover\PlateauRoverRepositoryInterface;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 

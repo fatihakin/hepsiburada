@@ -91,9 +91,9 @@ class RoverController extends Controller
         $commands = collect(str_split($request->validated('commands')));
         $area = new Area($rover->plateau->x_coordinate, $rover->plateau->y_coordinate);
         $latestRoverState = RoverState::query()->where('rover_id', $rover->id)->latest('id')->first();
-        $group=1;
-        if ($latestRoverState && $latestRoverState->group){
-            $group=$latestRoverState->group +1;
+        $group = 1;
+        if ($latestRoverState && $latestRoverState->group) {
+            $group = $latestRoverState->group + 1;
         }
         $roverStates = collect();
         foreach ($commands as $command) {
@@ -117,8 +117,8 @@ class RoverController extends Controller
             $roverStates->push($roverState);
         }
         DB::beginTransaction();
-        $roverStates->each(function (RoverState $roverState){
-           $roverState->save();
+        $roverStates->each(function (RoverState $roverState) {
+            $roverState->save();
         });
         $rover->save();
         DB::commit();

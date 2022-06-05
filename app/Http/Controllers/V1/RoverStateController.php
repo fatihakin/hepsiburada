@@ -5,10 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoverState\IndexRoverStateRequest;
 use App\Http\Resources\RoverStateResource;
-use App\Models\RoverState;
-use App\Repositories\Rover\RoverRepositoryInterface;
 use App\Repositories\RoverState\RoverStateRepositoryInterface;
-use Illuminate\Http\Request;
 
 class RoverStateController extends Controller
 {
@@ -18,6 +15,7 @@ class RoverStateController extends Controller
     {
         $this->roverStateRepository = $roverStateRepository;
     }
+
     /**
      * @OA\Get(
      *      path="/rovers/{roverId}/rover-states",

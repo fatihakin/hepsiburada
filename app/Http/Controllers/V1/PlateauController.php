@@ -7,7 +7,6 @@ use App\Http\Requests\Plateau\IndexPlateauRequest;
 use App\Http\Requests\Plateau\ShowPlateauRequest;
 use App\Http\Requests\Plateau\StorePlateauRequest;
 use App\Http\Resources\PlateauResource;
-use App\Models\Plateau;
 use App\Repositories\Plateau\PlateauRepositoryInterface;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
