@@ -27,7 +27,7 @@ class PlateauRoverController extends Controller
      *      operationId="getRoversByPlateauId",
      *      tags={"PlateauRovers"},
      *      summary="Get list of rovers by plateauId",
-     *      description="Returns rovers list with plateau",
+     *      description="Returns rovers list by using plateau Id",
      *      @OA\Parameter(
      *         description="Plateau Id",
      *         in="path",
@@ -53,7 +53,7 @@ class PlateauRoverController extends Controller
      *      operationId="createRoverByPlateau",
      *      tags={"PlateauRovers"},
      *      summary="Create new rover by plateau",
-     *      description="Create new rover with initial position",
+     *      description="Create new rover with initial position by using plato",
      *      @OA\Parameter(
      *         description="Plateau Id",
      *         in="path",

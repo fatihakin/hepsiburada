@@ -24,14 +24,17 @@ class RoverStateController extends Controller
      *      operationId="getRoverStatesByRoverId",
      *      tags={"RoverStates"},
      *      summary="Get list of rover states",
-     *      description="Returns rover states list",
+     *      description="Returns rover states list.
+     *          You can see all changes of rover's state step by step.
+     *          And also which command changed position or not.
+     *          We can say that it works like blockchain.",
      *      @OA\Parameter(
      *         description="Rover Id",
      *         in="path",
      *         name="roverId",
      *         required=true,
      *         @OA\Schema(type="integer"),
-     *         @OA\Examples(example="int", value="1", summary="An int value."),
+     *         @OA\Examples(example="int", value="1", summary="Rover ID"),
      *      ),
      *      @OA\Response(response=200, description="success",
      *          @OA\JsonContent(ref="#/components/schemas/RoverStateResource")

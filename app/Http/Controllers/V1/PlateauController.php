@@ -27,7 +27,7 @@ class PlateauController extends Controller
      *      operationId="createPlateaus",
      *      tags={"Plateaus"},
      *      summary="Create new plateau",
-     *      description="Create new plateau",
+     *      description="Create a new plateau.",
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",

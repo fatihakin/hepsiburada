@@ -12,6 +12,7 @@ use App\Models\Rover;
 use App\Models\RoverState;
 use App\Repositories\Rover\RoverRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class RoverController extends Controller
 {
@@ -28,14 +29,14 @@ class RoverController extends Controller
      *      operationId="findRoverById",
      *      tags={"Rovers"},
      *      summary="Find a single rover by id",
-     *      description="Returns a single rover",
+     *      description="Returns a single rover. If you would like to see desired state of rover, you can use this API",
      *      @OA\Parameter(
      *         description="Rover Id",
      *         in="path",
      *         name="id",
      *         required=true,
      *         @OA\Schema(type="integer"),
-     *         @OA\Examples(example="int", value="1", summary="An int value."),
+     *         @OA\Examples(example="int", value="1", summary="Rover ID"),
      *      ),
      *      @OA\Response(response=200, description="success", @OA\JsonContent(ref="#/components/schemas/RoverResource")),
      *      @OA\Response(response=404, description="resource not found",@OA\JsonContent(ref="#/components/schemas/NotFoundHttpException"))
@@ -54,7 +55,8 @@ class RoverController extends Controller
     /**
      * @OA\Put(
      *     path="/rovers/{id}/update-state",
-     *     summary="Update state of rover",
+     *     summary="Update state of rover by using commands",
+     *     description="Available commands are 'L','R','M'",
      *     operationId="updateRoverStateByCommand",
      *     tags={"Rovers"},
      *     @OA\Parameter(
@@ -63,7 +65,7 @@ class RoverController extends Controller
      *         name="id",
      *         required=true,
      *         @OA\Schema(type="integer"),
-     *         @OA\Examples(example="int", value="1", summary="An int value."),
+     *         @OA\Examples(example="string", value="LMLMRLM", summary="Combination of consecutive commands"),
      *     ),
      *     @OA\RequestBody(
      *         @OA\MediaType(
@@ -113,16 +115,13 @@ class RoverController extends Controller
             $roverState->new_y_coordinate = $rover->y_coordinate;
             $roverState->new_facing = $rover->facing;
             $roverStates->push($roverState);
-
         }
-
-//        dd($latestRoverState);
-
         DB::beginTransaction();
         $roverStates->each(function (RoverState $roverState){
            $roverState->save();
         });
         $rover->save();
         DB::commit();
+        return response()->noContent(ResponseAlias::HTTP_OK);
     }
 }
