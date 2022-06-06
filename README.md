@@ -24,9 +24,15 @@ This project was developed by Fatih AKIN for HepsiBurada
 
 ## 4. Run migration
 
+    docker exec -it <app-container-name> php artisan migrate
+like
+
     docker exec -it hepsiburada-laravel.test-1 php artisan migrate
 
 # Testing
+
+    docker exec -it<app-container-name> php artisan test
+like
 
     docker exec -it hepsiburada-laravel.test-1 php artisan test
     
