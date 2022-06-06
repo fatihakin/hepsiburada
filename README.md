@@ -30,6 +30,7 @@ like
     docker exec -it hepsiburada-laravel.test-1 php artisan migrate
 
 # Testing
+Note: I have changed test database from testing to hepsiburada. But normally it should be different. 
 
     docker exec -it<app-container-name> php artisan test
 like
