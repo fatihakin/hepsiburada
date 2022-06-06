@@ -1,4 +1,4 @@
-# About Challenge
+# About Case Study
 
 This project was developed by Fatih AKIN for HepsiBurada
 
