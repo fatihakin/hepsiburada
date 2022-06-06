@@ -9,7 +9,7 @@ This project was developed by Fatih AKIN for HepsiBurada
     
     cp .env.example .env
 
-## 2. Install required packages with docker
+## 2. Install required packages by using docker
     
     docker run --rm \
     -u "$(id -u):$(id -g)" \
