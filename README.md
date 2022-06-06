@@ -38,9 +38,14 @@ like
     docker exec -it hepsiburada-laravel.test-1 php artisan test
     
 # Swagger Documentations
+Links
 
     http://localhost/api/documentation/v1
     http://localhost/api/documentation/v2
 
+Jsons
+
+    http://localhost/api/v1/docs/api-docs-v1.json
+    http://localhost/api/v1/docs/api-docs-v2.json
 # Notes
 You can see database ER diagram which name is "hepsiburada-er-diagram.png", in root directory 
