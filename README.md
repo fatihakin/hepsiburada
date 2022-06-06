@@ -21,6 +21,9 @@ This project was developed by Fatih AKIN for HepsiBurada
 ## 3. Stand up project with docker
     
     ./vendor/bin/sail up
+or
+    
+    ./vendor/bin/sail up -d
 
 ## 4. Run migration
 
