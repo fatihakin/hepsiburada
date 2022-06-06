@@ -41,3 +41,6 @@ like
 
     http://localhost/api/documentation/v1
     http://localhost/api/documentation/v2
+
+# Notes
+You can see database ER diagram which name is "hepsiburada-er-diagram.png", in root directory 
