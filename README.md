@@ -25,3 +25,12 @@ This project was developed by Fatih AKIN for HepsiBurada
 ## 4. Run migration
 
     docker exec -it hepsiburada-laravel.test-1 php artisan migrate
+
+# Testing
+
+    docker exec -it hepsiburada-laravel.test-1 php artisan test
+    
+# Swagger Documentations
+
+    http://localhost/api/documentation/v1
+    http://localhost/api/documentation/v2
